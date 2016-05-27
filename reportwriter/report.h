@@ -1,4 +1,3 @@
-
 struct Report
 {
 //member variables

@@ -17,22 +17,17 @@ std::string SetAuthorFirstName();
 std::string SetAuthorDrCode();
 std::string SetAuthorAssignedPost();
 std::string SetAuthorLocation();
+std::string SetSubjectLocation();
 
+// starting point main function
 int main()
 {
     ShowWelcome();
     MainMenu();
     system("PAUSE");
 
-
-
-
-
-
-
     return 0;
 }
-
 void ShowWelcome()
 {
 	system("CLS");
@@ -109,6 +104,7 @@ void DrDisorderly()
     disorderly.authorDRCode = SetAuthorDrCode();
     disorderly.authorAssignedPost = SetAuthorAssignedPost();
     disorderly.authorLocation = SetAuthorLocation();
+    disorderly.subjectLocation = SetSubjectLocation();
     ShowEntries(disorderly);
     system("PAUSE");
 }
@@ -117,7 +113,8 @@ void ShowEntries(Report myReport)
 	system("CLS");
 	std::cout << "Author Name: " << myReport.authorLast <<  "," << myReport.authorFirst
         << " " << myReport.authorDRCode << std::endl;
-    std::cout << "Assigned Post: " << myReport.authorAssignedPost << "Author's Location: " << myReport.authorLocation << std::endl;
+    std::cout << "Assigned Post: " << myReport.authorAssignedPost << " Author's Location: " << myReport.authorLocation << std::endl;
+    std::cout << "Subject Location: " << myReport.subjectLocation << std::endl;
 }
 std::string SetAuthorLastName()
 {
@@ -155,6 +152,14 @@ std::string SetAuthorAssignedPost()
 std::string SetAuthorLocation()
 {
 	std::cout << "Enter Author's Location During Infraction: ";
+	std::string location;
+	std::getline(std::cin,location);
+	transform(location.begin(), location.end(), location.begin(), ::toupper);
+	return location;
+}
+std::string SetSubjectLocation()
+{
+	std::cout << "Enter Subjects Location During Infraction: ";
 	std::string location;
 	std::getline(std::cin,location);
 	transform(location.begin(), location.end(), location.begin(), ::toupper);

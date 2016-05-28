@@ -116,7 +116,7 @@ void ShowEntries(Report myReport)
 	system("CLS");
 	std::cout << "Author Name: " << myReport.authorLast <<  "," << myReport.authorFirst
         << " " << myReport.authorDRCode << std::endl;
-    std::cout << "Assigned Post: " myReport.authorAssignedPost;// << "Author's Location: " << myReport.authorLocation std::endl;
+    //std::cout << "Assigned Post: " << myReport.authorAssignedPost << std::endl;// << "Author's Location: " << myReport.authorLocation std::endl;
 }
 std::string SetAuthorLastName()
 {

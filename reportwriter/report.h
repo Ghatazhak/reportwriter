@@ -1,6 +1,8 @@
+#pragma once
+#include <string>
 struct Report
 {
-//member variables
+
 	std::string authorLast;
 	std::string authorFirst;
 	std::string authorDRCode;

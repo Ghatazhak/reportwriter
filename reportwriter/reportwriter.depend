@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1464389953 source:c:\users\bart\documents\reportwriter\reportwriter\main.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+	<algorithm>
+	<report.h>
+

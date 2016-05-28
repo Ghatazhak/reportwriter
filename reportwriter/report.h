@@ -2,7 +2,6 @@
 #include <string>
 struct Report
 {
-
 	std::string authorLast;
 	std::string authorFirst;
 	std::string authorDRCode;
@@ -12,6 +11,6 @@ struct Report
 	std::string authorizingDRCode;
 	std::string incidentDate;
 	int incidentTime;
-	int writtenDate;
+	std::string writtenDate;
 	int writtenTime;
 };

@@ -27,7 +27,6 @@ int main()
     ShowWelcome();
     MainMenu();
     system("PAUSE");
-
     return 0;
 }
 void ShowWelcome()

@@ -10,7 +10,7 @@ struct Report
 	std::string authorLocation;
 	std::string subjectLocation;
 	std::string authorizingDRCode;
-	int incidentDate;
+	std::string incidentDate;
 	int incidentTime;
 	int writtenDate;
 	int writtenTime;

@@ -18,6 +18,8 @@ std::string SetAuthorDrCode();
 std::string SetAuthorAssignedPost();
 std::string SetAuthorLocation();
 std::string SetSubjectLocation();
+std::string SetAuthorizingDRCode();
+std::string SetIncidentDate();
 
 // starting point main function
 int main()
@@ -105,6 +107,8 @@ void DrDisorderly()
     disorderly.authorAssignedPost = SetAuthorAssignedPost();
     disorderly.authorLocation = SetAuthorLocation();
     disorderly.subjectLocation = SetSubjectLocation();
+    disorderly.authorizingDRCode = SetAuthorizingDRCode();
+    disorderly.incidentDate = SetIncidentDate();
     ShowEntries(disorderly);
     system("PAUSE");
 }
@@ -114,7 +118,8 @@ void ShowEntries(Report myReport)
 	std::cout << "Author Name: " << myReport.authorLast <<  "," << myReport.authorFirst
         << " " << myReport.authorDRCode << std::endl;
     std::cout << "Assigned Post: " << myReport.authorAssignedPost << " Author's Location: " << myReport.authorLocation << std::endl;
-    std::cout << "Subject Location: " << myReport.subjectLocation << std::endl;
+    std::cout << "Subject Location: " << myReport.subjectLocation << " Authorized By: " << myReport.authorizingDRCode << std::endl;
+    std::cout << "Incident Date: " << myReport.incidentDate /*<< " Authorized By: " << myReport.authorizingDRCode */<< std::endl;
 }
 std::string SetAuthorLastName()
 {
@@ -164,4 +169,20 @@ std::string SetSubjectLocation()
 	std::getline(std::cin,location);
 	transform(location.begin(), location.end(), location.begin(), ::toupper);
 	return location;
+}
+std::string SetAuthorizingDRCode()
+{
+	std::cout << "Enter Authorizing DR Code: ";
+	std::string drCode;
+	std::getline(std::cin,drCode);
+	transform(drCode.begin(), drCode.end(), drCode.begin(), ::toupper);
+	return drCode;
+}
+std::string SetIncidentDate()
+{
+	std::cout << "Enter Infraction Date: ";
+	std::string date;
+	std::getline(std::cin,date);
+	transform(date.begin(), date.end(), date.begin(), ::toupper);
+	return date;
 }

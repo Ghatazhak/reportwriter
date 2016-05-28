@@ -16,6 +16,7 @@ std::string SetAuthorLastName();
 std::string SetAuthorFirstName();
 std::string SetAuthorDrCode();
 std::string SetAuthorAssignedPost();
+std::string SetAuthorLocation();
 
 int main()
 {
@@ -107,7 +108,7 @@ void DrDisorderly()
     disorderly.authorFirst = SetAuthorFirstName();
     disorderly.authorDRCode = SetAuthorDrCode();
     disorderly.authorAssignedPost = SetAuthorAssignedPost();
-    //disorderly.authorLocation
+    disorderly.authorLocation = SetAuthorLocation();
     ShowEntries(disorderly);
     system("PAUSE");
 }
@@ -116,7 +117,7 @@ void ShowEntries(Report myReport)
 	system("CLS");
 	std::cout << "Author Name: " << myReport.authorLast <<  "," << myReport.authorFirst
         << " " << myReport.authorDRCode << std::endl;
-    //std::cout << "Assigned Post: " << myReport.authorAssignedPost << std::endl;// << "Author's Location: " << myReport.authorLocation std::endl;
+    std::cout << "Assigned Post: " << myReport.authorAssignedPost << "Author's Location: " << myReport.authorLocation << std::endl;
 }
 std::string SetAuthorLastName()
 {
@@ -139,7 +140,7 @@ std::string SetAuthorDrCode()
 	std::cout << "Enter Author's DR Code: ";
 	std::string drCode;
 	std::cin >> drCode;
-	std::cin.ignore(32767, '\n');
+	std::cin.ignore(32767, '\n'); // Need this to flush newline out of input stream.
 	transform(drCode.begin(), drCode.end(), drCode.begin(), ::toupper);
 	return drCode;
 }
@@ -150,4 +151,12 @@ std::string SetAuthorAssignedPost()
 	std::getline(std::cin,aPost);
 	transform(aPost.begin(), aPost.end(), aPost.begin(), ::toupper);
 	return aPost;
+}
+std::string SetAuthorLocation()
+{
+	std::cout << "Enter Author's Location During Infraction: ";
+	std::string location;
+	std::getline(std::cin,location);
+	transform(location.begin(), location.end(), location.begin(), ::toupper);
+	return location;
 }

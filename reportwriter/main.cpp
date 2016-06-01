@@ -1,16 +1,17 @@
-#include<iostream>
-#include<string>
-#include<cstdlib>
-#include<algorithm>
-#include<report.h>
+#include <iostream>
+#include <string>
+#include <cstdlib>
+#include <algorithm>
+#include <report.h>
+#include <enums.h>
 #define over3 "\t\t\t"
 #define down3 "\n\n\n"
 
 //function prototypes
 void ShowWelcome();
-void MainMenu();
-void DrMenu();
-void DrDisorderly();
+Report MainMenu();
+Report DrMenu();
+Report DrDisorderly();
 void ShowEntries(Report);
 std::string SetAuthorLastName();
 std::string SetAuthorFirstName();
@@ -20,12 +21,17 @@ std::string SetAuthorLocation();
 std::string SetSubjectLocation();
 std::string SetAuthorizingDRCode();
 std::string SetIncidentDate();
+std::string SetIncidentTime();
+std::string SetWrittenDate();
+Report ShowReportSummary(Report);
+std::string SetSubjectLast();
+std::string SetSubjectFirst();
 
 // starting point main function
 int main()
 {
     ShowWelcome();
-    MainMenu();
+    ShowReportSummary(MainMenu());
     system("PAUSE");
     return 0;
 }
@@ -34,13 +40,14 @@ void ShowWelcome()
 	system("CLS");
 	std::cout << over3 << "WELCOME TO THE FDC REPORT WIZARD" << std::endl;
 	std::cout << over3 << "   Programmer: Bart R Lyons" << std::endl;
-	std::cout << over3 << "Email: nocternalwarrior@gmail.com" << std::endl;
+	std::cout << over3 << "Email: lyons.bart@gmail.com" << std::endl;
 	std::cout << down3 << down3 << down3 << down3 << down3 << down3 << down3;
 	system("PAUSE");
 }
-void MainMenu()
+Report MainMenu()
 {
     int menuSelection{0};
+    Report myReport;
     do
     {
 
@@ -54,25 +61,27 @@ void MainMenu()
         std::cout << over3 << "3. Exit" << std::endl;
         std::cout << over3 << "Menu Selection: ";
         std::cin >> menuSelection;
+
         switch(menuSelection)
         {
-            case 1:
-                DrMenu();
+            case OPTION_ONE:
+                myReport = DrMenu();
                 break;
-            case 2:
+            case OPTION_TWO:
                 std::cout << "Incident Reports not yet implemented!";
                 break;
-            default:
-                std::cout << "Default";
+            case EXIT:
+                std::cout << "Exit!";
 
         }
-    }while(menuSelection !=3);
+    }while(menuSelection != EXIT);
+    return myReport;
 }
-void DrMenu()
+Report DrMenu()
 {
+	Report myReport;
 	int menuSelection{0};
-	do
-    {
+
         system("CLS");
         std::cout << over3 << " DISCIPLINARY REPORT MENU" << std::endl;
         std::cout << over3 << "___________________________" << std::endl;
@@ -84,21 +93,21 @@ void DrMenu()
 
         switch(menuSelection)
         {
-            case 1:
-                DrDisorderly();
+            case OPTION_ONE:
+                myReport = DrDisorderly();
                 break;
-            case 2:
+            case OPTION_TWO:
                 std::cout << "Incident Reports not yet implemented!"; //TODO OTHER DRS
                 break;
-            default:
-                std::cout << "Default"; //TODO
+            case EXIT:
+                std::cout << "EXIT"; //TODO
         }
-    }while(menuSelection != 3);
-
+    return myReport;
 
 }
-void DrDisorderly()
+Report DrDisorderly()
 {
+
     Report disorderly;
     disorderly.authorLast = SetAuthorLastName();
     disorderly.authorFirst = SetAuthorFirstName();
@@ -106,19 +115,26 @@ void DrDisorderly()
     disorderly.authorAssignedPost = SetAuthorAssignedPost();
     disorderly.authorLocation = SetAuthorLocation();
     disorderly.subjectLocation = SetSubjectLocation();
+    disorderly.subjectLast = SetSubjectLast();
+    disorderly.subjectFirst = SetSubjectFirst();
     disorderly.authorizingDRCode = SetAuthorizingDRCode();
     disorderly.incidentDate = SetIncidentDate();
+    disorderly.incidentTime = SetIncidentTime();
+    disorderly.writtenDate = SetWrittenDate();
     ShowEntries(disorderly);
     system("PAUSE");
+    return disorderly;
 }
 void ShowEntries(Report myReport)
 {
 	system("CLS");
-	std::cout << "Author Name: " << myReport.authorLast <<  "," << myReport.authorFirst
-        << " " << myReport.authorDRCode << std::endl;
-    std::cout << "Assigned Post: " << myReport.authorAssignedPost << " Author's Location: " << myReport.authorLocation << std::endl;
-    std::cout << "Subject Location: " << myReport.subjectLocation << " Authorized By: " << myReport.authorizingDRCode << std::endl;
-    std::cout << "Incident Date: " << myReport.incidentDate /*<< " Authorized By: " << myReport.authorizingDRCode */<< std::endl;
+	std::cout << "Author Name: " << myReport.authorLast <<  "," << myReport.authorFirst << " " << myReport.authorDRCode << std::endl;
+    std::cout << "Assigned Post: " << myReport.authorAssignedPost << " Author's Location: " << myReport.authorLocation << " Author's Position: " << myReport.postSupervisionLevel << std::endl;
+    std::cout <<"Subject Name: " << myReport.subjectLast << ", " << myReport.subjectFirst << ": " << myReport.subjectDCNumber << " Subject Location: " << myReport.subjectLocation << std::endl;
+    std::cout << "Authorized By: " << myReport.authorizingLast <<  "," << myReport.authorizingFirst << " " << myReport.authorizingDRCode << std::endl;
+    std::cout << "Incident Date: " << myReport.incidentDate << " Incident Time: " << myReport.incidentTime << std::endl;
+    std::cout << "Report Completed Date: " << myReport.writtenDate << " Report Completed Time: " << myReport.writtenTime << std::endl;
+
 }
 std::string SetAuthorLastName()
 {
@@ -133,7 +149,7 @@ std::string SetAuthorFirstName()
 	std::cout << "Enter Author's first name: ";
 	std::string firstName;
 	std::cin >> firstName;
-	transform(firstName.begin(), firstName.end(), firstName.begin(), ::toupper);
+	//transform(firstName.begin(), firstName.end(), firstName.begin(), ::toupper);
 	return firstName;
 }
 std::string SetAuthorDrCode()
@@ -184,4 +200,41 @@ std::string SetIncidentDate()
 	std::getline(std::cin,date);
 	transform(date.begin(), date.end(), date.begin(), ::toupper);
 	return date;
+}
+std::string SetIncidentTime()
+{
+	std::cout << "Enter Infraction Time: ";
+	std::string time;
+	std::getline(std::cin,time);
+	transform(time.begin(), time.end(), time.begin(), ::toupper);
+	return time;
+}
+std::string SetWrittenDate()
+{
+	std::cout << "Report Completion Date: ";
+	std::string date;
+	std::getline(std::cin,date);
+	transform(date.begin(), date.end(), date.begin(), ::toupper);
+	return date;
+}
+std::string SetSubjectLast()
+{
+	std::cout << "Enter Subject Last Name: ";
+	std::string name;
+	std::getline(std::cin,name);
+	transform(name.begin(), name.end(), name.begin(), ::toupper);
+	return name;
+}
+std::string SetSubjectFirst()
+{
+	std::cout << "Enter Subject First Name: ";
+	std::string name;
+	std::getline(std::cin,name);
+	transform(name.begin(), name.end(), name.begin(), ::toupper);
+	return name;
+}
+Report ShowReportSummary(Report myReport)
+{
+    std::cout << "On " << myReport.incidentDate << " I was assigned as " << myReport.authorAssignedPost << " housing " << myReport.postSupervisionLevel << ". "<< "At approximately " << myReport.incidentTime << " I was present in the " << myReport.authorLocation << " when I observed inmate " << myReport.subjectLast << ", " << myReport.subjectFirst << myReport.subjectDCNumber << " waiving his arms in the air and yelling \"" << myReport.subjectStatement << "\"" << " thus inmate " << myReport.subjectLast << "was disrupting the normal operations of " << myReport.subjectLocation << " area. " << "The shift supervisor authorized inmate " << myReport.subjectLast << " to be charged with " << myReport.reportCharge << std::endl;
+    return myReport;
 }

@@ -32,6 +32,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="enums.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="report.h">
 			<Option compile="1" />
